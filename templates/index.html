@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Index Page</title>
+</head>
+<body>
+	Login as: <span>{{request.session.user}}</span>
+	<br>
+	Go to <a href="{% url 'profile' request.session.user %}">Profile</a>
+	<hr>
+	<a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
