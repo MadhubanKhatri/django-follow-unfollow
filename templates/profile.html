@@ -2,31 +2,101 @@
 <html>
 <head>
 	<title>Profile Page</title>
+	<style type="text/css">
+		*{
+			background: rgb(13 17 23);
+			color: white;
+			font-family: sans-serif;
+			letter-spacing: 1px;
+		}
+		h4
+		{
+			font-size: 25px;
+		}
+		.followers
+		{
+			font-size: 20px;
+		}
+		.followers a
+		{
+			text-decoration: none;
+			background-color: dodgerblue;
+			padding: 10px;
+			color: black;
+		}
+		.following a
+		{
+			text-decoration: none;
+			background-color: dodgerblue;
+			padding: 10px;
+			color: black;
+		}
+		.following
+		{
+			font-size: 20px;
+		}
+		input[type='search']
+		{	
+			width: 300px;
+			font-size: 20px;
+			border: 1px solid lime;
+			padding: 10px;
+		}
+		input[type='submit']
+		{
+			font-size: 20px;	
+			border: 1px solid lime;
+			padding: 10px;
+			transition: 0.5s ease;
+		}
+		input[type='submit']:hover
+		{
+			background: lime;
+			color: black;
+		}
+	</style>
 </head>
 <body>
 	<h1>Profile Page</h1>
+	<form action="{% url 'search' %}" method="get">
+		<input type="search" name="query" placeholder="Search by Name">
+		<input type="submit" value="Search">
+	</form>
 	<hr>
 	{% if user_obj.name == request.session.user%}
 	<h4>Name: {{user_obj.name}}</h4>
-	<span>Followers: {{followers.count }}</span>
-	<br>
-	<span>Following: {{following.another_user.count }}</span>
+	<span class="followers"><a href="{% url 'followers' user_obj.name %}">Followers</a>: {{followers.count }}</span>
+	
+
+	<span class="following"><a href="{% url 'following' user_obj.name %}">Following</a>: {{session_following.another_user.count }}</span>
+	
 	{% else %}
 	<h4>Name: {{user_obj.name}}</h4>
-	<span>Followers: {{followers.count }}</span>
-	<br>
-	<span>Following: {{following.another_user.count }}</span>
-	<h4>Profile is Private.</h4>
-	{% endif %}
-	<br><br>
+	<span class="followers"><a href="{% url 'followers' user_obj.name %}">Followers</a>: {{followers.count }}</span>
+	
 
-	{% if user_obj.name != request.session.user%}
-	{% if is_followed %}
-		<a href="{% url 'follow' user_obj.name %}" style="border: 1px solid; background: red; padding:10px; color: white;">Unfollow</a>
-	{% else %}
-		<a href="{% url 'follow' user_obj.name %}" style="border: 1px solid; background: yellow; padding:10px; color: black;">Follow</a>
-	{% endif %}
+	<span class="following"><a href="{% url 'following' user_obj.name %}">Following</a>: {{user_following.another_user.count }}</span>
 	
 	{% endif %}
+	<br><hr><br>
+
+	<h4>Bio: </h4>
+	<span>{{user_obj.bio|safe}}</span>
+
+<hr>
+	<form action="{% url 'follow' user_obj.name %}" method="post">
+		{% csrf_token %}
+	{% if user_obj.name != request.session.user %}
+		{% if is_followed %}
+			<input type="submit" value="Unfollow" style="border: 1px solid; background: red; padding:10px; color: white;">
+		{% else %}
+			<input type="submit" value="Follow" style="border: 1px solid; background: yellow; padding:10px; color: black;">
+		{% endif %}
+	{% else %}
+		<a style="color: dodgerblue;" href="#">Edit Profile</a> |
+		<a style="color: dodgerblue;" href="#">Settings</a> | 
+		<a style="color: dodgerblue;" href="{% url 'logout' %}">Logout</a>
+	{% endif %}
+	</form>
 </body>
 </html>
