@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign Up</title>
+	<style type="text/css">
+		*{
+			background: rgb(13 17 23);
+			color: white;
+			font-family: sans-serif;
+			letter-spacing: 1px;
+		}
+		input[type='text']
+		{	
+			width: 300px;
+			font-size: 20px;
+			border: 1px solid lime;
+			padding: 10px;
+		}
+		input[type='submit']
+		{
+			font-size: 20px;	
+			border: 1px solid lime;
+			padding: 10px;
+			transition: 0.5s ease;
+		}
+		input[type='submit']:hover
+		{
+			background: lime;
+			color: black;
+		}
+		
+	</style>
+</head>
+<body>
+	<h1>Signup Form</h1>
+	<form action="" method="post" class="form">
+		{% csrf_token %}
+		{{form.media}}
+		{{form.as_p}}
+		<input type="submit" value="Signup">
+	</form>
+</body>
+</html>

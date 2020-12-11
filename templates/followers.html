@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Followers</title>
+	<style type="text/css">
+		*{
+			background: rgb(13 17 23);
+			color: white;
+			font-family: sans-serif;
+			letter-spacing: 1px;
+		}
+		ul li
+		{
+			margin-top: 10px;
+			font-size: 20px;
+			color: dodgerblue;
+		}
+		ul li a
+		{
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+	<h1>Followers({{followers}})</h1>
+	<hr>
+	<ul>
+		{% for follower in all_followers %}
+			<li><a href="{% url 'profile' follower.user.name %}">{{follower}}</a></li>
+		{% endfor %}
+	</ul>
+
+</body>
+</html>
