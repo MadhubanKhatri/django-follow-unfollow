@@ -2,14 +2,51 @@
 <html>
 <head>
 	<title>Login page</title>
+	<style type="text/css">
+		*{
+			background: rgb(13 17 23);
+			color: white;
+			font-family: sans-serif;
+			letter-spacing: 1px;
+		}
+		div
+		{
+			position: absolute;
+			transform: translate(100%,50%);
+		}
+		input[type='text']
+		{	
+			width: 300px;
+			font-size: 20px;
+			border: 1px solid lime;
+			padding: 10px;
+		}
+		input[type='submit']
+		{
+			font-size: 20px;	
+			border: 1px solid lime;
+			padding: 10px;
+			transition: 0.5s ease;
+		}
+		input[type='submit']:hover
+		{
+			background: lime;
+			color: black;
+		}
+	</style>
 </head>
 <body>
+	<div>
+	<h2>Login</h2>
 	<form action="{% url 'login' %}" method="post">
 		{% csrf_token %}
 		<input type="text" name="uname" placeholder="Name">
+		<br><br>
 		<input type="text" name="pwd" placeholder="Password">
+		<br><br>
 		<input type="submit" value="Login">
 
 	</form>
+	</div>
 </body>
 </html>
